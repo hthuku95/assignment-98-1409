@@ -1,0 +1,103 @@
+[package]
+name = "googlemaps-clone"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A Google Maps clone built with Rust"
+license = "MIT"
+repository = "https://github.com/yourusername/googlemaps-clone"
+
+[dependencies]
+# Web framework
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "cors"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+
+# Geographic and mapping
+geo = "0.27"
+geojson = "0.24"
+proj = "0.27"
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# Configuration
+config = "0.14"
+dotenvy = "0.15"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# UUID generation
+uuid = { version = "1.0", features = ["v4", "serde"] }
+
+# Date and time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Async utilities
+futures = "0.3"
+
+# Image processing for tiles
+image = "0.24"
+
+# Compression
+flate2 = "1.0"
+
+# Template engine for web pages
+askama = { version = "0.12", features = ["with-axum"] }
+
+# WebSocket support for real-time features
+tokio-tungstenite = "0.21"
+
+# Rate limiting
+tower-governor = "0.1"
+
+# Authentication
+jsonwebtoken = "9.0"
+bcrypt = "0.15"
+
+# Caching
+moka = { version = "0.12", features = ["future"] }
+
+# Metrics and monitoring
+metrics = "0.22"
+metrics-exporter-prometheus = "0.13"
+
+[dev-dependencies]
+tokio-test = "0.4"
+assert_matches = "1.5"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.dev]
+debug = true
+opt-level = 0
+
+[[bin]]
+name = "server"
+path = "src/main.rs"
+
+[[bin]]
+name = "tile-generator"
+path = "src/bin/tile_generator.rs"
+
+[[bin]]
+name = "data-importer"
+path = "src/bin/data_importer.rs"
